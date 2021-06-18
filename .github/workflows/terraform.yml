@@ -12,10 +12,10 @@ jobs:
         uses: robertdebock/terraform-action@1.0.8
         with:
           directory: ./examples/default
-      - name: terraform
+      - name: terraform default validate
         uses: robertdebock/terraform-action@1.0.8
         with:
-          action: validate default validate
+          action: validate
           directory: ./examples/default
       - name: terraform customized init
         uses: robertdebock/terraform-action@1.0.8
