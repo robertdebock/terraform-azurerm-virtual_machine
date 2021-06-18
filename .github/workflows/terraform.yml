@@ -28,14 +28,14 @@ jobs:
         with:
           action: plan
           directory: ./examples/default
-      - name: terraform plan
+      - name: terraform apply
         uses: robertdebock/terraform-action@1.1.1
         with:
-          action: apply
+          action: apply -auto-approve
           directory: ./examples/default
       - name: terraform destroy
         uses: robertdebock/terraform-action@1.1.1
         with:
-          action: destroy
+          action: destroy -auto-approve
           directory: ./examples/default
         if: ${{ always() }}
