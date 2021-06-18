@@ -3,7 +3,13 @@ on:
   - push
 
 jobs:
-  build:
+  terraform:
+    name: Terraform
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
@@ -17,21 +23,8 @@ jobs:
         with:
           action: validate
           directory: ./examples/default
-      - name: login to azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: terraform default plan
         uses: robertdebock/terraform-action@1.1.1
         with:
           action: plan
           directory: ./examples/default
-      - name: terraform customized init
-        uses: robertdebock/terraform-action@1.1.1
-        with:
-          directory: ./examples/customized
-      - name: terraform customized validate
-        uses: robertdebock/terraform-action@1.1.1
-        with:
-          action: validate
-          directory: ./examples/customized
