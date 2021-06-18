@@ -18,13 +18,24 @@ jobs:
         uses: robertdebock/terraform-action@1.1.1
         with:
           directory: ./examples/default
-      - name: terraform default validate
+      - name: terraform validate
         uses: robertdebock/terraform-action@1.1.1
         with:
           action: validate
           directory: ./examples/default
-      - name: terraform default plan
+      - name: terraform plan
         uses: robertdebock/terraform-action@1.1.1
         with:
           action: plan
           directory: ./examples/default
+      - name: terraform plan
+        uses: robertdebock/terraform-action@1.1.1
+        with:
+          action: apply
+          directory: ./examples/default
+      - name: terraform destroy
+        uses: robertdebock/terraform-action@1.1.1
+        with:
+          action: destroy
+          directory: ./examples/default
+        if: ${{ always() }}
