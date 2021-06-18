@@ -9,11 +9,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: terraform default init
-        uses: robertdebock/terraform-action@1.1.0
+        uses: robertdebock/terraform-action@1.1.1
         with:
           directory: ./examples/default
       - name: terraform default validate
-        uses: robertdebock/terraform-action@1.1.0
+        uses: robertdebock/terraform-action@1.1.1
         with:
           action: validate
           directory: ./examples/default
@@ -22,16 +22,16 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: terraform default plan
-        uses: robertdebock/terraform-action@1.1.0
+        uses: robertdebock/terraform-action@1.1.1
         with:
           action: plan
           directory: ./examples/default
       - name: terraform customized init
-        uses: robertdebock/terraform-action@1.1.0
+        uses: robertdebock/terraform-action@1.1.1
         with:
           directory: ./examples/customized
       - name: terraform customized validate
-        uses: robertdebock/terraform-action@1.1.0
+        uses: robertdebock/terraform-action@1.1.1
         with:
           action: validate
           directory: ./examples/customized
