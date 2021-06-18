@@ -17,6 +17,15 @@ jobs:
         with:
           action: validate
           directory: ./examples/default
+      - name: login to azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: terraform default plan
+        uses: robertdebock/terraform-action@1.0.8
+        with:
+          action: plan
+          directory: ./examples/default
       - name: terraform customized init
         uses: robertdebock/terraform-action@1.0.8
         with:
