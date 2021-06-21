@@ -43,3 +43,32 @@ jobs:
         env:
           TF_CLI_ARGS: "-input=false -auto-approve"
         if: ${{ always() }}
+      - name: terraform init (customized)
+        uses: robertdebock/terraform-action@1.1.1
+        with:
+          directory: ./examples/customized
+      - name: terraform validate (customized)
+        uses: robertdebock/terraform-action@1.1.1
+        with:
+          action: validate
+          directory: ./examples/customized
+      - name: terraform plan (customized)
+        uses: robertdebock/terraform-action@1.1.1
+        with:
+          action: plan
+          directory: ./examples/customized
+      - name: terraform apply (customized)
+        uses: robertdebock/terraform-action@1.1.1
+        with:
+          action: apply
+          directory: ./examples/customized
+        env:
+          TF_CLI_ARGS: "-input=false -auto-approve"
+      - name: terraform destroy (customized)
+        uses: robertdebock/terraform-action@1.1.1
+        with:
+          action: destroy
+          directory: ./examples/customized
+        env:
+          TF_CLI_ARGS: "-input=false -auto-approve"
+        if: ${{ always() }}
