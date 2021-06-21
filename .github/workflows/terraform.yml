@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: terraform default init
+      - name: terraform init
         uses: robertdebock/terraform-action@1.1.1
         with:
           directory: ./examples/default
