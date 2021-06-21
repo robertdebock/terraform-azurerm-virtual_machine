@@ -3,8 +3,8 @@ on:
   - push
 
 jobs:
-  terraform:
-    name: Terraform
+  terraform-default:
+    name: Terraform default
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
@@ -43,28 +43,37 @@ jobs:
         env:
           TF_CLI_ARGS: "-input=false -auto-approve"
         if: ${{ always() }}
-      - name: terraform init (customized)
+  terraform-customized:
+    name: Terraform customized
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: terraform init
         uses: robertdebock/terraform-action@1.1.1
         with:
           directory: ./examples/customized
-      - name: terraform validate (customized)
+      - name: terraform validate
         uses: robertdebock/terraform-action@1.1.1
         with:
           action: validate
           directory: ./examples/customized
-      - name: terraform plan (customized)
+      - name: terraform plan
         uses: robertdebock/terraform-action@1.1.1
         with:
           action: plan
           directory: ./examples/customized
-      - name: terraform apply (customized)
+      - name: terraform apply
         uses: robertdebock/terraform-action@1.1.1
         with:
           action: apply
           directory: ./examples/customized
         env:
           TF_CLI_ARGS: "-input=false -auto-approve"
-      - name: terraform destroy (customized)
+      - name: terraform destroy
         uses: robertdebock/terraform-action@1.1.1
         with:
           action: destroy
