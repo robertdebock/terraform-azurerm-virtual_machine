@@ -14,7 +14,7 @@ locals {
     small  = "Standard_DS2_v2"
     medium = "Standard_DS3_v2"
     large  = "Standard_DS4_v2"
-    xlarge = "Standard_DS5_v2
+    xlarge = "Standard_DS5_v2"
   }
   vm_size = local.vm_sizes[var.size]
 }
