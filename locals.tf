@@ -10,9 +10,11 @@ locals {
   storage_os_disk_name                = "sod_${var.name}"
   computer_name                       = "cn-${var.name}"
   vm_sizes = {
-    small  = "Standard_DS1_v2"
-    medium = "Standard_DS2_v2"
-    large  = "Standard_DS3_v2"
+    micro  = "Standard_DS1_v2"
+    small  = "Standard_DS2_v2"
+    medium = "Standard_DS3_v2"
+    large  = "Standard_DS4_v2"
+    xlarge = "Standard_DS5_v2
   }
   vm_size = local.vm_sizes[var.size]
 }

@@ -44,6 +44,18 @@ The input the module requires: (all optional)
 |`location`      |string|"westeurope"   |
 |`size`          |string|"medium"       |
 
+### Sizes
+
+Sizes are mapping (in `locals.tf`) to the SKU. Possible values are:
+
+- "micro" (`Standard_DS1_v2`)
+- "small" (`Standard_DS2_v2`)
+- "medium" (`Standard_DS3_v2`)
+- "large" (`Standard_DS4_v2`)
+- "xlarge" (`Standard_DS5_v2`)
+
+The specs for the sizes can be found on [MicroSofts documentation](https://docs.microsoft.com/en-us/azure/virtual-machines/dv2-dsv2-series#dv2-series).
+
 ### Locations
 
 Valid values (listed in `variables.tf`) are:
@@ -116,11 +128,3 @@ Valid values (listed in `variables.tf`) are:
 - "westus2stage"
 - "westus3"
 - "westusstage"    
-
-### Sizes
-
-Sizes are mapping (in `locals.tf`) to the SKU. Possible values are:
-
-- "small" (`Standard_DS1_v2`)
-- "medium" (`Standard_DS2_v2`)
-- "large" (`Standard_DS3_v2`)
