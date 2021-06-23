@@ -43,4 +43,8 @@ variable "size" {
   type        = string
   description = "The size of your deployment."
   default     = "medium"
+  validation {
+    condition     = contains(["micro", "small", "medium", "large", "xlarge"], var.size)
+    error_message = "Please choose a valid size: micro, small, medium, large or xlarge."
+ }
 }
