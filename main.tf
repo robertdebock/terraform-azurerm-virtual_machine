@@ -73,10 +73,9 @@ resource "azurerm_linux_virtual_machine" "default" {
   disable_password_authentication = false
 
   os_disk {
-    name              = local.storage_os_disk_name
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Premium_LRS"
+    name                 = local.storage_os_disk_name
+    caching              = "ReadWrite"
+    storage_account_type = "Premium_LRS"
   }
 
   source_image_reference {
@@ -89,6 +88,6 @@ resource "azurerm_linux_virtual_machine" "default" {
 
 data "azurerm_public_ip" "default" {
   name                = azurerm_public_ip.default.name
-  resource_group_name = azurerm_virtual_machine.default.resource_group_name
-  depends_on          = [azurerm_virtual_machine.default]
+  resource_group_name = azurerm_linux_virtual_machine.default.resource_group_name
+  depends_on          = [azurerm_linux_virtual_machine.default]
 }
