@@ -62,35 +62,28 @@ resource "azurerm_network_interface" "default" {
 }
 
 # Create a Linux virtual machine
-resource "azurerm_virtual_machine" "default" {
-  name                  = local.virtual_machine_name
-  location              = var.location
-  resource_group_name   = azurerm_resource_group.default.name
-  network_interface_ids = [azurerm_network_interface.default.id]
-  vm_size               = local.vm_size
+resource "azurerm_linux_virtual_machine" "default" {
+  name                            = local.virtual_machine_name
+  location                        = var.location
+  resource_group_name             = azurerm_resource_group.default.name
+  network_interface_ids           = [azurerm_network_interface.default.id]
+  size                            = local.vm_size
+  admin_username                  = var.admin_username
+  admin_password                  = var.admin_password
+  disable_password_authentication = false
 
-  storage_os_disk {
+  os_disk {
     name              = local.storage_os_disk_name
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Premium_LRS"
   }
 
-  storage_image_reference {
+  source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "18.04-LTS"
     version   = "latest"
-  }
-
-  os_profile {
-    computer_name  = local.computer_name
-    admin_username = var.admin_username
-    admin_password = var.admin_password
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = false
   }
 }
 

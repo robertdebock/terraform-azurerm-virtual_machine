@@ -46,5 +46,5 @@ variable "size" {
   validation {
     condition     = contains(["micro", "small", "medium", "large", "xlarge"], var.size)
     error_message = "Please choose a valid size: micro, small, medium, large or xlarge."
- }
+  }
 }

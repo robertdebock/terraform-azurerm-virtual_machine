@@ -8,7 +8,6 @@ locals {
   ip_configuration_name               = "ic_${var.name}"
   virtual_machine_name                = "vm_${var.name}"
   storage_os_disk_name                = "sod_${var.name}"
-  computer_name                       = "cn-${var.name}"
   vm_sizes = {
     micro  = "Standard_DS1_v2"
     small  = "Standard_DS2_v2"
