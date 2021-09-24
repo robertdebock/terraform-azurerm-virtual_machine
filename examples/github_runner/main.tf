@@ -1,6 +1,6 @@
 module "azurerm_virtual_machine" {
   source       = "../../"
-  name         = "githubrunner'
+  name         = "githubrunner"
   cloud_config = "cloud_config"
 }
 
