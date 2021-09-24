@@ -61,6 +61,22 @@ resource "azurerm_network_interface" "default" {
   }
 }
 
+data "template_file" "default" {
+  count    = var.cloud_config == "" ? 0 : 1
+  template = file("${path.module}/${var.cloud_config}")
+}
+
+data "template_cloudinit_config" "defaut" {
+  count         = var.cloud_config == "" ? 0 : 1
+  gzip          = true
+  base64_encode = true
+
+  part {
+    content_type = "text/cloud-config"
+    content      = "${data.template_file.default.rendered}"
+  }
+}
+
 # Create a Linux virtual machine
 resource "azurerm_linux_virtual_machine" "default" {
   name                            = local.virtual_machine_name
@@ -72,6 +88,7 @@ resource "azurerm_linux_virtual_machine" "default" {
   admin_username                  = var.admin_username
   admin_password                  = var.admin_password
   disable_password_authentication = false
+  custom_data                     = try(data.template_cloudinit_config.default.rendered, null)
 
   os_disk {
     name                 = local.storage_os_disk_name
@@ -85,20 +102,6 @@ resource "azurerm_linux_virtual_machine" "default" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
-}
-
-resource "azurerm_virtual_machine_extension" "default" {
-  name                 = local.machine_extension_name
-  virtual_machine_id   = azurerm_linux_virtual_machine.default.id
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
-
-  settings = <<SETTINGS
-    {
-        "commandToExecute": "${var.commands}"
-    }
-SETTINGS
 }
 
 data "azurerm_public_ip" "default" {

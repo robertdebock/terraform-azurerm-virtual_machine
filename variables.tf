@@ -49,12 +49,8 @@ variable "size" {
   }
 }
 
-variable "commands" {
+variable "cloud_config" {
   type        = string
-  description = "The command(s) to execute. For example: \"hostname && uptime\"."
-  default     = "hostname && uptime"
-  validation {
-    condition     = length(var.commands) > 0
-    error_message = "Please use a command with 1 or more characters."
-  }
+  description = "The name of a cloud-init file."
+  default     = ""
 }
