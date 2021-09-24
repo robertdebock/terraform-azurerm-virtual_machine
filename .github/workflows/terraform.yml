@@ -16,6 +16,7 @@ jobs:
         config:
           - name: default
           - name: customized
+          - name: github_runner
     steps:
       - name: checkout
         uses: actions/checkout@v2

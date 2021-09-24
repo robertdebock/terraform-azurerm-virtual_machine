@@ -87,6 +87,20 @@ resource "azurerm_linux_virtual_machine" "default" {
   }
 }
 
+resource "azurerm_virtual_machine_extension" "default" {
+  name                 = local.machine_extension_name
+  virtual_machine_id   = azurerm_linux_virtual_machine.default.id
+  publisher            = "Microsoft.Azure.Extensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.0"
+
+  settings = <<SETTINGS
+    {
+        "commandToExecute": "${var.commands}"
+    }
+SETTINGS
+}
+
 data "azurerm_public_ip" "default" {
   name                = azurerm_public_ip.default.name
   resource_group_name = azurerm_linux_virtual_machine.default.resource_group_name

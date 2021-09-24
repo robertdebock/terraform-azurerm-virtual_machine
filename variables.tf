@@ -48,3 +48,13 @@ variable "size" {
     error_message = "Please choose a valid size: micro, small, medium, large or xlarge."
   }
 }
+
+variable "commands" {
+  type        = string
+  description = "The command(s) to execute. For example: \"hostname && uptime\"."
+  default     = "hostname && uptime"
+  validation {
+    condition     = length(var.commands) > 0
+    error_message = "Please use a command with 1 or more characters."
+  }
+}
