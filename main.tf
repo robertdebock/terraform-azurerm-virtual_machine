@@ -66,19 +66,20 @@ data "template_file" "default" {
   template = file("${path.module}/${var.cloud_config}")
 }
 
-data "template_cloudinit_config" "defaut" {
+data "template_cloudinit_config" "default" {
   count         = var.cloud_config == "" ? 0 : 1
   gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
-    content      = "${data.template_file.default.rendered}"
+    content      = "${data.template_file.default[count.index].rendered}"
   }
 }
 
 # Create a Linux virtual machine
 resource "azurerm_linux_virtual_machine" "default" {
+  count                           = 1
   name                            = local.virtual_machine_name
   computer_name                   = var.name
   location                        = var.location
@@ -88,7 +89,7 @@ resource "azurerm_linux_virtual_machine" "default" {
   admin_username                  = var.admin_username
   admin_password                  = var.admin_password
   disable_password_authentication = false
-  custom_data                     = try(data.template_cloudinit_config.default.rendered, null)
+  custom_data                     = try(data.template_cloudinit_config.default[count.index].rendered, null)
 
   os_disk {
     name                 = local.storage_os_disk_name
@@ -105,7 +106,8 @@ resource "azurerm_linux_virtual_machine" "default" {
 }
 
 data "azurerm_public_ip" "default" {
+  count               = 1
   name                = azurerm_public_ip.default.name
-  resource_group_name = azurerm_linux_virtual_machine.default.resource_group_name
+  resource_group_name = azurerm_linux_virtual_machine.default[count.index].resource_group_name
   depends_on          = [azurerm_linux_virtual_machine.default]
 }
