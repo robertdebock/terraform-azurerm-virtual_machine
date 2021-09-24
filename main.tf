@@ -63,7 +63,7 @@ resource "azurerm_network_interface" "default" {
 
 data "template_file" "default" {
   count    = var.cloud_config == "" ? 0 : 1
-  template = file("${path.module}/${var.cloud_config}")
+  template = file("${var.cloud_config}")
 }
 
 data "template_cloudinit_config" "default" {
