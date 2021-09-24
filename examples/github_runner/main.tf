@@ -1,6 +1,6 @@
 module "azurerm_virtual_machine" {
   source   = "../../"
-  commands = EOF
+  commands = <<-EOF
 export runner_version="2.283.1"
 export RUNNER_ALLOW_RUNASROOT="1"
 wget -qO- "https://github.com/actions/runner/releases/download/v${runner_version}/actions-runner-linux-x64-${runner_version}.tar.gz" | tar xvz -
