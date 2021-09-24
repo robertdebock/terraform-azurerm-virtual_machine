@@ -64,7 +64,7 @@ resource "azurerm_network_interface" "default" {
 # Create a Linux virtual machine
 resource "azurerm_linux_virtual_machine" "default" {
   name                            = local.virtual_machine_name
-  computer_name                   = replace(local.virtual_machine_name, local.special_characters_regex, "")
+  computer_name                   = var.name
   location                        = var.location
   resource_group_name             = azurerm_resource_group.default.name
   network_interface_ids           = [azurerm_network_interface.default.id]

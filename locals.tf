@@ -6,8 +6,6 @@ locals {
   azurerm_network_security_group_name = "nsg_${var.name}"
   network_interface_name              = "ni_${var.name}"
   ip_configuration_name               = "ic_${var.name}"
-  # special_characters_regex            = "(\\|/|\"|[|]|:|||<|>|+|=|;|,|?|*|@|&|~|!|#|$|%|^|\(|\)|_|{|})"
-  special_characters_regex            = "(\\|/|\"|[|]|:|||<|>|+|=|;|,|?|*|@|&|~|!|#|$|%|^|_|{|})"
   virtual_machine_name                = "vm_${var.name}"
   storage_os_disk_name                = "sod_${var.name}"
   vm_sizes = {

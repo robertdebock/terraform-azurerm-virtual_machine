@@ -3,7 +3,7 @@ variable "name" {
   description = "The name of the project. It's used to generate unique values for all kinds of resources."
   default     = "my"
   validation {
-    condition     = length(var.name) > 0 && length(var.name) <= 32
+    condition     = length(var.name) > 0 && length(var.name) <= 32 && can(regex("[^[:alnum:]]", var.name))
     error_message = "Please use a name with at least 1 character, and at most 32 characters."
   }
 }
